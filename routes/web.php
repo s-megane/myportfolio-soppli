@@ -11,6 +11,30 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+    ////return view('welcome');
+//});
+Route::get('/', 'EventsController@index');
+// ユーザ登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+// 認証
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');    
+Route::group(['middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'events/{id}'], function () {
+        Route::post('attendance' , 'AttendancesController@store')->name("attendance.store");
+        Route::put("udattendance" , "AttendancesController@update")->name("attendance.update");
+        Route::get("attendances" , "AttendancesController@attendances")->name("attendances");
+    });
+    Route::resource('users', 'UsersController');
+    Route::resource('events' , "EventsController");
+    Route::resource('attendances', 'AttendancesController');
+    //Route::post("attendance" , 'AttendancesController@store');
+    //Route::delete('users', 'UsersController@destroy')->name('users.destroy');
+    
+ });
+Route::group (['middleware' => ['auth', 'can:admin']], function () {
+	Route::get('/admin', 'AdminController@index');
 });
