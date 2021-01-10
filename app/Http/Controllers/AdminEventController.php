@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\User;
-class EventsController extends Controller
+class AdminEventController extends Controller
 {
      public function index()
     {
@@ -18,7 +18,7 @@ class EventsController extends Controller
                 "events" => $events ,
             ];
         }
-        return view("/admin.welcome" , $data);    
+        return view("admin" , $data);    
        
     }
 }

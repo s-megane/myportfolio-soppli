@@ -37,4 +37,8 @@ Route::group(['middleware' => ['auth']], function () {
  });
 Route::group (['middleware' => ['auth', 'can:admin']], function () {
 	Route::get('/admin', 'AdminController@index');
+	Route::group(['prefix' => 'users/{id}'], function () {
+        Route::get("/admin/edit", "AdminUserController@edit")->name("adminuser.edit");
+        Route::put("/admin/update" , "AdminUserController@update")->name("adminuser.update");
+	});    
 });

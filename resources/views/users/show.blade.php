@@ -21,4 +21,7 @@
             </table>
            
     </div>
+    @if (\Auth::user()->role ===1)
+    {!! link_to_route('adminuser.edit', '権限を変更する', [$user->id], ['class' => 'btn btn-light']) !!}
+    @endif
 @endsection
