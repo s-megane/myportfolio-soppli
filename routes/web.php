@@ -16,6 +16,7 @@
 //});
 Route::get('/', 'EventsController@index');
 // ユーザ登録
+//Route::resource('/', 'GoogleCalendarController');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // 認証
@@ -28,9 +29,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put("udattendance" , "AttendancesController@update")->name("attendance.update");
         Route::get("attendances" , "AttendancesController@attendances")->name("attendances");
     });
+    Route::group(['prefix' => 'users/{id}'], function () {
+        Route::get("users" , "UsersController@userdelete")->name("user.delete");
+    });
     Route::resource('users', 'UsersController');
     Route::resource('events' , "EventsController");
     Route::resource('attendances', 'AttendancesController');
+    
     //Route::post("attendance" , 'AttendancesController@store');
     //Route::delete('users', 'UsersController@destroy')->name('users.destroy');
     

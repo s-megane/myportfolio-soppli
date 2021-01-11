@@ -9,42 +9,77 @@
             {!! Form::model($user , ['route' => ['users.update', $user->id], 'method' => 'put']) !!}
             
                 <div class="form-group">
-                    {!! Form::label("name" , "登録名の変更:") !!}
-                    {!! Form::text("name", null, ["class" => "form-control"]) !!}
+                    <div class = "row">
+                        <div class = "col-sx-6 col-md-auto">    
+                            {!! Form::label("name" , "登録名:") !!}
+                        </div>
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::text("name", null, ["class" => "form-control"]) !!}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class = "row">
+                        <div class = "col-sx-6 col-md-auto">    
+                            {!! Form::label("email" , "メアド:") !!}
+                        </div>
+                        <div class = "col-sx-6 col-md-4">
+                            {!! Form::email("email", null, ["class" => "form-control"]) !!}
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label("birthday" , "生年月日:") !!}
-                    <div class = "mb-2">
-                    {!! Form::selectRange('yaer', '1963', '2020', $year, ['placeholder' => '年','class' => 'form-control']) !!}
-                    </div>
-                    <div class = "mb-2">
-                    {!! Form::selectRange('month', '01', '12', $month, ['placeholder' =>'月' , 'class' => 'form-control']) !!}
-                    </div>
-                    <div class = "mb-2">
-                    {!! Form::selectRange('day', '1', '31', $day, ['placeholder' => '日', 'class' => 'form-control']) !!}
+                    <p>例　2020　1　10</p>
+                    <div class = "row">
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::label("birthday" , "年:") !!}
+                        </div>
+                        <div class = "col-sx-6 col-md-2">
+                            {!! Form::text('year', $myyear, ['placeholder' => '年','class' => 'form-control']) !!}
+                        </div>
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::label("birthday" , "月:") !!} 
+                        </div>
+                        <div class = "col-sx-6 col-md-1">    
+                            {!! Form::text('month', $mymonth, ['placeholder' =>'月' , 'class' => 'form-control']) !!}
+                        </div>
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::label("birthday" , "日:") !!}  
+                        </div>
+                        <div class = "col-sx-6 col-md-1">
+                            {!! Form::text('day',  $myday, ['placeholder' => '日', 'class' => 'form-control']) !!}
+                        </div>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    {!! Form::label("mynum" , "背番号:") !!}
-                    {!! Form::text("mynum", null, ["class" => "form-control"]) !!}
+                    <div class = "row">
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::label("mynum" , "背番号:") !!}
+                        </div>    
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::text("mynum", null, ["class" => "form-control"]) !!}
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label("dominant" , "投/打:") !!}
                     <div class = "row">
-                        <div class = "col-sx-6 col-md-1">
-                            {!! Form::label("dominant_def" , "投:") !!}
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::label("dominant_def" , "利き手:") !!}
                         </div>    
-                        <div class = "col-sx-6 col-md-5">
-                            {!! Form::select("dominant_def", ['右'=>'右', '左' => '左'], null,['placeholder' => '利き手', 'class' => 'form-control']) !!}
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::select("dominant_def", ['右'=>'右', '左' => '左'], null,['class' => 'form-control']) !!}
                         </div>
-                        <div class = "col-sx-6 col-md-1">
-                            {!! Form::label("dominant_bat" , "打:") !!}
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::label("dominant_bat" , "打席:") !!}
                         </div>    
-                        <div class = "col-sx-6 col-md-5">
-                            {!! Form::select("dominant_bat", ['右'=>'右', '左' => '左', '両' => '両'], null ,['placeholder' => '打席', 'class' => 'form-control']) !!}
+                        <div class = "col-sx-6 col-md-auto">
+                            {!! Form::select("dominant_bat", ['右'=>'右', '左' => '左', '両' => '両'], null ,['class' => 'form-control']) !!}
                         </div>
                     </div>
                 </div>

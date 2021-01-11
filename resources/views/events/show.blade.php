@@ -5,6 +5,7 @@
         <div class = "text-center">
             <div class = "col-xs-12 col-md-12">
                 <h1>イベント詳細</h1>
+                
                     <div class = "mt-1">
                         <table class="table table-borderless">
                             <tr>
@@ -46,6 +47,7 @@
                         {!! Form::submit('参加', ['class' => "btn btn-primary"]) !!}
                     {!! Form::close() !!}
                 @endif
+                <span>参加人数{{ $event->attendances()->wherepivot("status", 1)->count() }}人</span>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -77,6 +79,7 @@
                         {!! Form::submit('不参加', ['class' => "btn btn-success"]) !!}
                     {!! Form::close() !!}
                 @endif
+                <span>不参加人数{{ $event->attendances()->wherepivot("status", 2)->count() }}人</span>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -108,6 +111,7 @@
                         {!! Form::submit('保留', ['class' => "btn btn-danger"]) !!}
                     {!! Form::close() !!}
                 @endif
+                <span>保留人数{{ $event->attendances()->wherepivot("status", 3)->count() }}人</span>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

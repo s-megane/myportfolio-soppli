@@ -24,6 +24,9 @@
                         {{-- ログアウトへのリンク --}}
                         <li class="dropdown-item">{!! link_to_route('logout.get', 'ログアウト') !!}</li>
                         <li class="dropdown-divider"></li>
+                        
+                        <li class="dropdown-item">{!! link_to_route('user.delete', '退部手続きへ',[Auth::id()]) !!}</li>
+                        <li class="dropdown-divider"></li>
                     </ul>
                 </li>
             </ul>

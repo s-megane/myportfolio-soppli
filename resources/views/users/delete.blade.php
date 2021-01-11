@@ -2,9 +2,16 @@
 
 @section('content')
     <div class="row">
-        <aside class="col-sm-4">
-            <h3>{{$user}}さん、チームを退会しますがよろしいでしょうか？</h3>
-            {!! link_to_route("users.destroy" , "退会します！" , [] , ['class' => 'btn btn-lg btn-denger']) !!}
+        <aside class="col-sx-4">
+            <h3>{{$user->name}}さん、チームを退部しますがよろしいでしょうか？</h3>
+            @if ($user->role === 1)
+                <a href="/admin">{!! Form::submit('思いとどまる！！', ['class' => 'btn btn-primary']) !!}</a>
+            @else
+                <a href="/">{!! Form::submit('思いとどまる！！', ['class' => 'btn btn-primary']) !!}</a>
+            @endif
+            {!! Form::open(['route' => ['users.destroy', $user->id] ,'method' => 'delete']) !!}
+                {!! Form::submit('退部します', ['class' => "btn btn-danger"]) !!}
+            {!! Form::close() !!}
         </aside>
     </div>
 @endsection

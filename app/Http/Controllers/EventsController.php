@@ -33,7 +33,12 @@ class EventsController extends Controller
      */
     public function create()
     {
-        //
+        $event = new Event;
+
+        // メッセージ作成ビューを表示
+        return view('events.create', [
+            'event' => $event,
+        ]);
     }
 
     /**
@@ -44,7 +49,16 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Event::create([
+            "eventdate" => $request->eventdate ,
+            "title" => $request->title ,
+            "place" => $request->place ,
+            "meetingtime" => $request->meetingtime ,
+            "deadlinedate" => $request->deadlinedate ,
+            
+        ]);
+        
+       return redirect('/admin');
     }
 
     /**
@@ -55,9 +69,13 @@ class EventsController extends Controller
      */
     public function show($id)
     {
+        $user = User::all();
         $event = Event::findOrFail($id);
+        $event->loadRelationshipCounts();
+        
         return view("events.show" , [
             "event" => $event ,  
+            "user" => $user ,
         ]);
     }
 

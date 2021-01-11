@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Carbon\Carbon;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -75,15 +75,26 @@ class User extends Authenticatable
     //         return true;
     //     }
     // }
-    
-    
-    
-   
-
-    
     public function is_attendance($eventId)
     {
         return $this->attendances()->where("event_id" , $eventId)->exists();
+    }
+    
+    public function user_age()
+    {
+        $now = Carbon::now();
+        $year = $now->year ;
+        $month = sprintf('%02d',$now->month);
+        $day = sprintf('%02d',$now->day);
+        $birth = $this->birthday;
+        $date = new Carbon($birth); 
+        $myyear = $date->year;
+        $mymonth = sprintf('%02d',$date->month);
+        $myday = sprintf('%02d',$date->day);
+        $dayA = $year.$month.$day;
+        $dayB = $myyear.$mymonth.$myday;
+        
+        return $age = floor(($dayA-$dayB)/10000);
     }
 }
 
