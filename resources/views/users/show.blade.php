@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <h1 class="border border-primary">{{ $user->name }}のプロフィール</h1>
         @if(Auth::id() === $user->id)
-            {!! link_to_route('users.edit', 'プロフィール編集', [ $user->id], ['class' => 'btn btn-light']) !!}
+            <span>{!! link_to_route('users.edit', 'プロフィール編集', [ $user->id], ['class' => 'btn btn-light']) !!}</span>
         @endif
             <table class="table table-border">
                 <div class = "text-center">
@@ -29,6 +29,6 @@
            
     </div>
     @if (\Auth::user()->role ===1)
-    {!! link_to_route('adminuser.edit', '権限を変更する', [$user->id], ['class' => 'btn btn-light']) !!}
+        {!! link_to_route('adminuser.edit', '権限を変更する', [$user->id], ['class' => 'btn btn-light']) !!}
     @endif
 @endsection

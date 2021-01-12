@@ -80,6 +80,11 @@ class User extends Authenticatable
         return $this->attendances()->where("event_id" , $eventId)->exists();
     }
     
+    public function notexists($eventId)
+    {
+        return $exist = $this->is_attendance($eventId);
+    }
+    
     public function user_age()
     {
         $now = Carbon::now();

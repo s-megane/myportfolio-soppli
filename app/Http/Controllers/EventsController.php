@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\User;
+use DB;
 class EventsController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class EventsController extends Controller
     {
         $data = [] ;
         if (\Auth::check()){
-            $events = Event::all();
+            $events = Event::orderBy("created_at")->get();
             $users = User::orderBy("role")->get();
             $data = [
                 "users" => $users ,
@@ -69,14 +70,17 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        $user = User::all();
         $event = Event::findOrFail($id);
-        $event->loadRelationshipCounts();
+        $exists = $event->attendances()->pluck('user_id')->toArray();
+        $users = User::whereNotIn('id', $exists)->get();
         
         return view("events.show" , [
             "event" => $event ,  
-            "user" => $user ,
+            "users" => $users ,
+            "exists" => $exists,          
         ]);
+        
+        
     }
 
     /**
@@ -87,7 +91,12 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        if (\Auth::user()->role ===1){
+            return view("events.edit" , [
+               "event" => $event, 
+            ]);
+        }
     }
 
     /**
@@ -99,7 +108,16 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (\Auth::user()->role ===1){
+            $event = Event::findOrFail($id);
+            $event->eventdate = $request->eventdate;
+            $event->title = $request->title;
+            $event->place = $request->place;
+            $event->meetingtime = $request->meetingtime;
+            $event->deadlinedate = $request->deadlinedate;
+            $event->save();
+            return redirect('/admin');
+        }
     }
 
     /**
@@ -110,6 +128,12 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        if (\Auth::user()->role === 1){
+           $event->delete();
+           return redirect("/admin");
+        }
+            
+            
     }
 }
