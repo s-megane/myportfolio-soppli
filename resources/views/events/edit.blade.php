@@ -3,7 +3,7 @@
 @section('content')
 <div class="d-flex justify-content-center">
     <div class="row">
-    <h2>イベントの作成</h2>
+    <h2>イベントの編集</h2>
         <div class="col-sx-6 col-md-12 mt-3">
             {!! Form::model($event , ['route' => ['events.update', $event->id], 'method' => 'put']) !!}
             

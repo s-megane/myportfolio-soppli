@@ -28,7 +28,24 @@
             </table>
            
     </div>
-    @if (\Auth::user()->role ===1)
-        {!! link_to_route('adminuser.edit', '権限を変更する', [$user->id], ['class' => 'btn btn-light']) !!}
-    @endif
+    <div class = "m-4">
+        <div class = "row justify-content-center">
+            <div class = "col-xs-6 col-mb-Auto">
+                <div class = "mr-2">
+                    @if (\Auth::user()->role ===1)
+                        {!! link_to_route('adminuser.edit', '権限を変更する', [$user->id], ['class' => 'btn btn-light']) !!}
+                    @endif
+                </div>
+            </div>
+            <div class = "col-xs-6 col-mb-Auto">
+                <div class = "ml-2">
+                    @if (\Auth::user()->role ===1)
+                        {!! Form::open(['route' => ['adminuser.destroy', $user->id] ,'method' => 'delete']) !!}
+                            {!! Form::submit('このメンバーを削除する', ['class' => "btn btn-danger"]) !!}
+                        {!! Form::close() !!}
+                    @endif 
+                </div>
+            </div> 
+        </div>
+    </div>    
 @endsection

@@ -2,8 +2,8 @@
 
 @section('content')
     @if (Auth::check())
-        <h3>管理者としてログインしています</h3>
-        {!! link_to_route('events.create', '新規イベントの作成', [], ['class' => 'btn btn-primary']) !!}
+        <h4>※管理者としてログインしています</h4>
+        <span>{!! link_to_route('events.create', '新規イベントの作成', [], ['class' => 'btn btn-success']) !!}</span>
         <div class = "row justify-content-between">
         
         @include("events.index")

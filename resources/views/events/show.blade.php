@@ -6,6 +6,11 @@
         <div class = "text-center">
             <div class = "col-xs-12 col-md-Auto">
                 <h1>イベント詳細</h1>
+                @if (\Auth::user()->role ===1)
+                    {!! Form::open(['route' => ['mail.send', $event->id]]) !!}
+                        {!! Form::submit('出欠確認メール送信', ['class' => "btn btn-primary"]) !!}
+                    {!! Form::close() !!}
+                @endif 
                 <div class = "mt-1">
                     <table class="table table-borderless">
                         <tr>

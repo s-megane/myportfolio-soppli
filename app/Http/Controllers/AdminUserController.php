@@ -25,4 +25,18 @@ class AdminUserController extends Controller
         // トップページへリダイレクトさせる
         return redirect("/admin");
     }
+    
+    public function destroy($id)
+    {
+        $adminUser = \Auth::user();
+        $role = $adminUser->role;
+        $user = User::findOrFail($id);
+        
+        if ($role === 1){
+           $user->delete();
+        }
+            //session()->flash('flash_message', '退部しました。今までお世話になりました。');
+            return redirect("/admin");
+       
+    }
 }
