@@ -1,0 +1,95 @@
+body{
+    font-family:'Latina Essential Bold' ;
+    overflow-y: scroll;
+}
+.navbarlogo {
+    margin-top:0px;margin-bottom:23px;
+}
+.navbar_category{
+    vertical-align:middle;
+    display: inline-block;
+    padding: 3px;
+    margin-bottom:0px;
+    border: solid 2px #FFFF99;
+    position: relative;
+    background-color:#444444;
+}
+
+.mybtn {
+    background-color:#AA0000;
+    border: solid 2px #444444;
+    color:#FFFFCC;
+}
+
+.mybtn:hover {
+   background-color:#DC143C; 
+}
+
+.mynav {
+    background-color:#AA0000;
+    height: 53px;
+} 
+
+.category{
+    color:#FFFFDD;
+    
+}
+
+.category:hover{
+    color:#FFFFDD;
+    /*text-decoration: none;*/
+}
+
+.list-group-item-action.active{
+   background-color:#AA0000;
+    border: solid 2px #444444;
+    color:#FFFFCC; 
+}
+.dropitem{
+    background-color:#AA0000;
+}
+
+.mybtn2 {
+    background-color:#0000AA;
+    border: solid 2px #444444;
+    color:#FFFFCC;
+}
+
+.mybtn2:hover {
+   background-color:#0000EE; 
+   color:#111111;
+}
+
+.mybtn3 {
+    background-color:#CCCCCC;
+    border: solid 2px #444444;
+    color:#FFFFCC;
+}
+
+.mybtn3:hover {
+   background-color:#EEEEEE; 
+   color:#111111;
+}
+
+.mydropdoun {
+    background-color:#AA0000;
+    color:#111111;
+}
+
+.mydropmenu {
+    background-color:#AA0000;
+    color:#111111;
+}
+.mydropmenu:hover {
+    background-color:#AA0000;
+    color:#FFFFDD;
+}
+
+.mylink {
+    color : #AA0000;
+    text-decoration: none;
+}
+.mylink:hover {
+    color : #DC143C;
+    text-decoration: none;
+}

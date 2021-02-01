@@ -3,21 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\UserService;
 use App\User;
 use Carbon\Carbon;
+use DB;
+use App\Http\Requests\valiRequest;
+use App\Http\Requests\ProfileRequest;
 class UsersController extends Controller
 {
-    //public function userdelete($id)
-    //{
-        
-       // if (\Auth::check()) { // 認証済みの場合
-         //   $user = User::findOrFail($id);
-       // }
-        //return view("users.delete" , [
-          //      "user" => $user ,
-           // ]);
-   // }
-    
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -30,26 +23,30 @@ class UsersController extends Controller
        
     }
     
-    public function index()
+    public function index(UserService $User)
     {
-        $data = [];
         if (\Auth::check()) {
-            $users = User::orderBy("role")->get();
+            $users = User::orderBy("role")->paginate(10);
+            $aveColl = $User->getranking('ave'); 
+            $hrColl = $User->getranking('hr');
+            $rbiColl= $User->getranking('rbi');
             
-                $data = [
-                    "users" => $users ,
-                ];
+                
         }
-        return view("welcome" , $data);
+        return view("users.index" , compact('users','aveColl','hrColl','rbiColl'));
     }
     
-    public function show($id)
+    public function show(UserService $User , valiRequest $request ,$id)
     {
         $user = User::findOrFail($id);
+        $abilitys = ["meet" ,"power" ,"run" ,"defense", "shoulder"];
+        $year = $request->input('getyear');
+        $opponent = $request->input('getopponent');
+        $prev = User::where('id','<',$user->id)->orderBy('id','desc')->first();
+        $next = User::where('id','>',$user->id)->orderBy('id')->first();
+        $data = $User->getserch($id,$opponent,$year);
         
-        return view("users.show" ,[
-            "user" => $user ,    
-        ]);
+        return view('users.show',compact('user','year','opponent','data','abilitys','prev','next'));
     }
     
     public function edit($id){
@@ -71,7 +68,7 @@ class UsersController extends Controller
         }
     }
     
-    public function update(Request $request, $id)
+    public function update(ProfileRequest $request, $id)
     {
         // $request->validate([ 
         //     "content" => "required" ,
@@ -80,15 +77,16 @@ class UsersController extends Controller
         
         $user = User::findOrFail($id) ;
         if (\Auth::id() === $user->id){
-            $user->name = $request->name ;
+            $user->name = $request->Name ;
             $user->birthday = $request->year."-" .sprintf('%02d',$request->month)."-".sprintf('%02d',$request->day);
             $user->mynum = $request->mynum;
             $user->dominant_def = $request->dominant_def;
             $user->dominant_bat = $request->dominant_bat;
+            $user->email = $request->Email;
             $user->save();
         }
         
-        return redirect('/');
+        return redirect()->action("UsersController@show",[$user->id]);
     }
     public function userdelete($id)
     {
@@ -99,4 +97,12 @@ class UsersController extends Controller
             ]);
         
     }
+    
+    public function ranking ()
+    {
+        
+        //dd($aveColl);
+        //return view('users.ranking' ,compact('aveColl', 'hrColl'  , 'rbiColl'));
+    }
+    
 }

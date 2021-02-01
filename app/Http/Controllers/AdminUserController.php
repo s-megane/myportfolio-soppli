@@ -28,10 +28,10 @@ class AdminUserController extends Controller
     
     public function destroy($id)
     {
-        $adminUser = \Auth::user();
-        $role = $adminUser->role;
-        $user = User::findOrFail($id);
         
+        $role = \Auth::user()->role;
+        $user = User::findOrFail($id);
+        //dd($role);
         if ($role === 1){
            $user->delete();
         }

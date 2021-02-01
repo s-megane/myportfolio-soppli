@@ -32,6 +32,8 @@ class LoginController extends Controller
         $role = $this->guard()->user()->role;
         if ($role == 1){
             return "/admin";
+        }elseif($role == 2){
+            return "/admin";
         }else{
             return "/";
         }

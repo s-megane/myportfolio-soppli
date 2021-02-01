@@ -1,10 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\EventRequest;
 use App\Event;
 use App\User;
+use App\Game;
 use DB;
 class EventsController extends Controller
 {
@@ -17,14 +18,17 @@ class EventsController extends Controller
     {
         $data = [] ;
         if (\Auth::check()){
-            $events = Event::orderBy("created_at")->get();
-            $users = User::orderBy("role")->get();
+            $events = Event::take(5)->orderBy("created_at" ,"desc")->paginate(5);
+            $users = User::orderBy("role")->paginate(10);
+            $game = Game::take(1)->orderBy("created_at" , "desc");
             $data = [
                 "users" => $users ,
                 "events" => $events ,
+                "game" => $game,
             ];
         }
         return view("welcome" , $data);
+        
     }
 
     /**
@@ -35,11 +39,7 @@ class EventsController extends Controller
     public function create()
     {
         $event = new Event;
-
-        // メッセージ作成ビューを表示
-        return view('events.create', [
-            'event' => $event,
-        ]);
+        return view('events.create', compact('event'));
     }
 
     /**
@@ -48,18 +48,32 @@ class EventsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        Event::create([
-            "eventdate" => $request->eventdate ,
-            "title" => $request->title ,
-            "place" => $request->place ,
-            "meetingtime" => $request->meetingtime ,
-            "deadlinedate" => $request->deadlinedate ,
-            
-        ]);
+        //イベントデータ作成
+        $event = new Event;
+        $event->fill($request->all())->save();
         
-       return redirect('/admin');
+        
+        //作成イベントデータのidを取得
+        $eventId = $event->id;
+        //作成イベントのタイトルを取得
+        $title = $event->title;
+        if($title == "練習"||$title == "親睦会" )
+        {
+        }else{
+            
+            //1大会につき2試合
+            $gamecounts = ['第1試合' , '第2試合'];
+            //gamesテーブルに2試合分のデータ登録
+            foreach ($gamecounts as $gamecount){
+                $game = new Game;
+                $game->event_id = $eventId;
+                $game->title = $gamecount;
+                $game ->save();
+            }    
+        }
+       return redirect()->action('EventsController@show' , [$event->id]);
     }
 
     /**
@@ -73,14 +87,7 @@ class EventsController extends Controller
         $event = Event::findOrFail($id);
         $exists = $event->attendances()->pluck('user_id')->toArray();
         $users = User::whereNotIn('id', $exists)->get();
-        
-        return view("events.show" , [
-            "event" => $event ,  
-            "users" => $users ,
-            "exists" => $exists,          
-        ]);
-        
-        
+        return view("events.show" , compact("event" , "users" , "exists"));
     }
 
     /**
@@ -92,10 +99,8 @@ class EventsController extends Controller
     public function edit($id)
     {
         $event = Event::findOrFail($id);
-        if (\Auth::user()->role ===1){
-            return view("events.edit" , [
-               "event" => $event, 
-            ]);
+        if (\Auth::user()->role <= 2){
+            return view("events.edit" ,compact("event")); 
         }
     }
 
@@ -106,17 +111,17 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventRequest $request, $id)
     {
-        if (\Auth::user()->role ===1){
+        if (\Auth::user()->role <= 2){
             $event = Event::findOrFail($id);
-            $event->eventdate = $request->eventdate;
-            $event->title = $request->title;
-            $event->place = $request->place;
-            $event->meetingtime = $request->meetingtime;
-            $event->deadlinedate = $request->deadlinedate;
-            $event->save();
-            return redirect('/admin');
+            // $event->eventdate = $request->eventdate;
+            // $event->title = $request->title;
+            // $event->place = $request->place;
+            // $event->meetingtime = $request->meetingtime;
+            // $event->deadlinedate = $request->deadlinedate;
+            $event->fill($request->all())->save();
+            return redirect()->action('EventsController@show' , [$event->id]);
         }
     }
 
@@ -129,7 +134,7 @@ class EventsController extends Controller
     public function destroy($id)
     {
         $event = Event::findOrFail($id);
-        if (\Auth::user()->role === 1){
+        if (\Auth::user()->role <= 2){
            $event->delete();
            return redirect("/admin");
         }

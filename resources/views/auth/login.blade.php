@@ -5,8 +5,8 @@
         <h1>ログイン</h1>
     </div>
 
-    <div class="row">
-        <div class="col-sm-6 offset-sm-3">
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
 
             {!! Form::open(['route' => 'login.post']) !!}
                 <div class="form-group">
@@ -21,7 +21,7 @@
                 
                
 
-                {!! Form::submit('ログイン', ['class' => 'btn btn-info btn-block']) !!}
+                {!! Form::submit('ログイン', ['class' => 'btn mybtn btn-block']) !!}
             {!! Form::close() !!}
 
             {{-- ユーザ登録ページへのリンク --}}

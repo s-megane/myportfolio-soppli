@@ -5,8 +5,8 @@
         <h1>メンバー登録！</h1>
     </div>
 
-    <div class="row">
-        <div class="col-sm-6 offset-sm-3">
+    <div class="row justify-content-center">
+        <div class="col-sm-4">
 
             {!! Form::open(['route' => 'signup.post']) !!}
                 <div class="form-group">
@@ -29,7 +29,7 @@
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('登録！', ['class' => 'btn btn-info btn-block']) !!}
+                {!! Form::submit('登録！', ['class' => 'btn mybtn btn-block']) !!}
             {!! Form::close() !!}
         </div>
     </div>

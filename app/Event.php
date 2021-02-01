@@ -17,4 +17,16 @@ class Event extends Model
     {
         $this->loadCount('attendances');
     }
+    
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
+    
+    public function year_get($year)
+    {
+        
+        return $getdate = Event::whereYear('eventdate' , $year)->get();
+        
+    }
 }

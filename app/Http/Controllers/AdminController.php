@@ -11,8 +11,8 @@ class AdminController extends Controller
     {
         $data = [] ;
         if (\Auth::check()){
-            $events = Event::all();
-            $users = User::orderBy("role")->get();
+            $events = Event::take(5)->orderBy("created_at" ,"desc")->paginate(5);
+            $users = User::orderBy("role")->paginate(10);
             $data = [
                 "users" => $users ,
                 "events" => $events ,
