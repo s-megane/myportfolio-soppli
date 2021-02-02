@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View; // ←追加
+use Illuminate\Support\Facades\Schema;
 use App\Game;
 use App\Event;
 use Carbon\Carbon;
