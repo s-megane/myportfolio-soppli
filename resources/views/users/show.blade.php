@@ -31,11 +31,7 @@
                     @else
                         <span class = "mr-Auto prev">{!! link_to_route("users.show" , '前のメンバーへ' , ['user' => $prev->id],['class' => 'mylink']) !!}</span>
                     @endif
-                    @if(Auth::user()->role <= 2)
-                        <a class = 'mylink' href="/admin" >戻る</a>
-                    @else
-                        <a class = 'mylink' href="/">戻る</a>
-                    @endif
+                    {!! link_to_route("users.index" , '戻る' , [],['class' => 'mylink']) !!}
                     @if($next == null)
                         <span></span>
                     @else

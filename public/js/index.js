@@ -104,7 +104,7 @@ jQuery(function () {
     } else if ($(val).text() === "C") {
       $(val).css('color', '#ffa500');
     } else if ($(val).text() === "D") {
-      $(val).css('color', '#ffff00');
+      $(val).css('color', '#BEFF15');
     } else if ($(val).text() === "E") {
       $(val).css('color', '#32cd32');
     } else if ($(val).text() === "F") {
