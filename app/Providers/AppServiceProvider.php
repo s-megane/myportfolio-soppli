@@ -44,7 +44,7 @@ class AppServiceProvider extends ServiceProvider
         });
         
         View::composer('*', function($view) {
-            $Event = Event::first();
+            //$Event = Event::first();
             $now = Carbon::now()->year;
             //$exist = Event::where('id','')->get();
             $getyear = Event::whereYear('eventdate' , $now)->orderBy('created_at' , 'desc')->get();
