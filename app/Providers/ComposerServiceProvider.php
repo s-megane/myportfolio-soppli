@@ -23,15 +23,15 @@ class ComposerServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
-    {
+    // public function boot()
+    // {
         
-            View::composers([
-            LayoutComposer::class => [
-              'events.index',
-              'games.index'
-          ]
-      ]);
+    //         View::composers([
+    //         LayoutComposer::class => [
+    //           'events.index',
+    //           'games.index'
+    //       ]
+    //   ]);
         
-    }
+    // }
 }
