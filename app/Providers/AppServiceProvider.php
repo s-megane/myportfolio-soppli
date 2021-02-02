@@ -28,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \URL::forceScheme('https');
+        Schema::defaultStringLength(191);
         
         \Gate::define("admin" , function($users){
             return ($users->role === 1);    
