@@ -52,8 +52,6 @@ class AppServiceProvider extends ServiceProvider
             $getago = Event::whereYear('eventdate' , $now-2)->orderBy('created_at' , 'desc')->get();
             
             $view->with([
-                'games', 'From Provider',
-                'Event' => $Event,
                 'now' => $now,
                 'getyear' => $getyear,
                 'getbefore' => $getbefore,
