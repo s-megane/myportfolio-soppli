@@ -5,7 +5,9 @@
     <div class = "col-sm-10 col-md-12">
         <div class = "text-center">
             <h2>{{$game->opponent}}戦試合詳細</h2>
+            @if($status == 1)
             {!! link_to_route('grades.edit', \Auth::user()->name.'の成績入力' , [$game->id],['class' => 'mylink']) !!}
+            @endif
             <table class="table table-border  table-striped">
                 <thead>
                     <tr>

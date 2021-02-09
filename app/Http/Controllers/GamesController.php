@@ -17,10 +17,17 @@ class GamesController extends Controller
     public function details($id)
     {
         $game = Game::findOrFail($id);
-        
-        return view('games.details' , [
-               'game' => $game,
-            ]);
+        $event = $game->event()->first();
+        $attend = $event->attendances()->where('attendances.user_id' , \Auth::id())->first();
+        if(!empty(\Auth::user()->is_attendance($event->id)))
+        {
+            $status = $attend->pivot->status;
+        }else
+        {
+            $status = '';
+        }
+        return view('games.details' , compact('game' , 'status'));
+            
     }
      
     public function index() 

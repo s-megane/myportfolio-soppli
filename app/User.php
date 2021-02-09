@@ -272,7 +272,7 @@ class User extends Authenticatable
         }
         if(!empty($year) && !empty($opponent)){
             $mycount = $this->usergames()->whereYear('users_games.created_at' ,$year)
-                ->where('opponent',$opponent)->count();     
+                ->where('opponent' , 'like' , '%' . $opponent . '%')->count();     
         }
         return $mycount;    
     }
@@ -289,7 +289,7 @@ class User extends Authenticatable
             ->whereNotnull('users_games.innings')->count('users_games.innings');   
         }else{
             $mycount = $this->usergames()->whereYear('users_games.created_at' ,$year)
-                ->where('opponent',$opponent)->whereNotnull('users_games.innings')->count();     
+                ->where('opponent' , 'like' , '%' . $opponent . '%')->whereNotnull('users_games.innings')->count();     
         }return $mycount;
         
     }    
