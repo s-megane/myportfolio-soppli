@@ -11,7 +11,7 @@
                                 <tbody>
                                     @foreach($aveColl as $coll)
                                     <tr>
-                                        <td class = 'rank'><h5></h5></td>
+                                        <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
                                         <td><h5>{{$coll['name']}}</h5></td>
                                         <td><h5 class = 'ave'>{{$coll['ave']}}</h5></td>
                                     </tr>
@@ -26,9 +26,9 @@
                                 <tbody>
                                     @foreach($hrColl as $coll)
                                     <tr>
-                                        <td class = 'rank1'><h5></h5></td>
+                                        <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
                                         <td><h5>{{$coll['name']}}</h5></td>
-                                        <td><h5 class = 'hr'>{{$coll['hr']}}</h5></td>
+                                        <td><h5 class = 'hr'>{{$coll['hr']}}本</h5></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -40,9 +40,9 @@
                                 <tbody>
                                     @foreach($rbiColl as $coll)
                                     <tr>
-                                        <td class = 'rank2'><h5></h5></td>
+                                        <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
                                         <td><h5>{{$coll['name']}}</h5></td>
-                                        <td><h5 class = 'rbi'>{{$coll['rbi']}}</h5></td>
+                                        <td><h5 class = 'rbi'>{{$coll['rbi']}}打点</h5></td>
                                     </tr>
                                     @endforeach    
                                 </tbody>

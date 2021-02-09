@@ -104,7 +104,7 @@ jQuery(function () {
     } else if ($(val).text() === "C") {
       $(val).css('color', '#ffa500');
     } else if ($(val).text() === "D") {
-      $(val).css('color', '#BEFF15');
+      $(val).css('color', '#ffff00');
     } else if ($(val).text() === "E") {
       $(val).css('color', '#32cd32');
     } else if ($(val).text() === "F") {
@@ -114,74 +114,42 @@ jQuery(function () {
     }
   });
   $.each($(".rank"), function (i, val) {
-    if (i === 0) {
-      $(val).text('1位');
+    //console.log(val);
+    if ($(val).text() === '1位') {
+      //$(val).text('1位');
       $(val).css('color', '#ffd700');
       $(val).css('font-weight', '700');
-      console.log('true', i, val);
-    } else if (i === 1) {
-      $(val).text('2位');
+    } else if ($(val).text() === '2位') {
+      //$(val).text('2位');
       $(val).css('color', '#c0c0c0');
       $(val).css('font-weight', '600');
-    } else if (i === 2) {
-      $(val).text('3位');
+    } else if ($(val).text() === '3位') {
+      //$(val).text('3位');
       $(val).css('color', '#a52a2a');
       $(val).css('font-weight', '500');
     }
-  });
-  $.each($(".rank1"), function (i, val) {
-    if (i === 0) {
-      $(val).text('1位');
-      $(val).css('color', '#ffd700');
-      $(val).css('font-weight', '700');
-      console.log('true', i, val);
-    } else if (i === 1) {
-      $(val).text('2位');
-      $(val).css('color', '#c0c0c0');
-      $(val).css('font-weight', '600');
-    } else if (i === 2) {
-      $(val).text('3位');
-      $(val).css('color', '#a52a2a');
-      $(val).css('font-weight', '500');
-    }
-  });
-  $.each($(".rank2"), function (i, val) {
-    if (i === 0) {
-      $(val).text('1位');
-      $(val).css('color', '#ffd700');
-      $(val).css('font-weight', '700');
-      console.log('true', i, val);
-    } else if (i === 1) {
-      $(val).text('2位');
-      $(val).css('color', '#c0c0c0');
-      $(val).css('font-weight', '600');
-    } else if (i === 2) {
-      $(val).text('3位');
-      $(val).css('color', '#a52a2a');
-      $(val).css('font-weight', '500');
-    }
-  });
-  $.each($(".ave"), function (i, val) {
-    if (i === 0) {
-      $(val).css('color', '#dc143c');
-      $(val).css('font-weight', '700');
-      console.log('true', i, val);
-    }
-  });
-  $.each($(".hr"), function (i, val) {
-    if (i === 0) {
-      $(val).css('color', '#dc143c');
-      $(val).css('font-weight', '700');
-      console.log('true', i, val);
-    }
-  });
-  $.each($(".rbi"), function (i, val) {
-    if (i === 0) {
-      $(val).css('color', '#dc143c');
-      $(val).css('font-weight', '700');
-      console.log('true', i, val);
-    }
-  });
+  }); // $.each($(".ave"), function(i, val) {
+  // 	if(i === 0){
+  // 		//$(val).css('color','#AA0000');
+  // 		$(val).css('font-weight', '700');
+  // 		console.log('true',i,val);
+  // 	}
+  // });
+  // $.each($(".hr"), function(i, val) {
+  // 	if(i === 0){
+  // 		//$(val).css('color','#AA0000');
+  // 		$(val).css('font-weight', '700');
+  // 		console.log('true',i,val);
+  // 	}
+  // });
+  // $.each($(".rbi"), function(i, val) {
+  // 	if(i === 0){
+  // 		//$(val).css('color','#AA0000');
+  // 		$(val).css('font-weight', '700');
+  // 		console.log('true',i,val);
+  // 	}
+  // });
+
   $('.games').css('font-size', '30px');
   $(".fade").css({
     left: "-100px",

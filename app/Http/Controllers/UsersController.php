@@ -27,11 +27,9 @@ class UsersController extends Controller
     {
         if (\Auth::check()) {
             $users = User::orderBy("role")->paginate(10);
-            $aveColl = $User->getranking('ave'); 
-            $hrColl = $User->getranking('hr');
-            $rbiColl= $User->getranking('rbi');
-            
-                
+            $aveColl = $User->getAveRank(); 
+            $hrColl = $User->getHrRank();
+            $rbiColl= $User->getRbiRank();
         }
         return view("users.index" , compact('users','aveColl','hrColl','rbiColl'));
     }

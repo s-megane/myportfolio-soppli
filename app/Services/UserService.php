@@ -8,9 +8,9 @@ use DB;
 
 class UserService {
     
-    public function getranking($col)
+    //ユーザーの成績一覧コレクションを作成する
+    public function addCollection($col)
     {
-        $cnt = 1;
         $gameCount = Game::count();
         $rank = 1;
         $now = Carbon::now()->year;
@@ -18,35 +18,111 @@ class UserService {
         foreach($users as $user){
             if($gameCount > 0)  //試合数が0じゃなければ
             {
-                if($gameCount <= $user->totalSum($now , '' , '.at_bat'))
-                {
-                    $data[] = ['id'=>$user->id ,'name'=>$user->name ,  
-                    'hr'=>$user->totalSum($now , '' , '.hr') ,'rbi'=>$user->totalSum($now , '' , '.rbi') ,
-                    'atbat'=>$user->totalSum($now , '' , '.at_bat') ,'ave'=>$user->totalaverage($now,'','.hits','.at_bat'),'rank'=>$rank.'位'];
-                }
+                $data[] = ['id'=>$user->id ,'name'=>$user->name ,  
+                'hr'=>$user->totalSum($now , '' , '.hr') ,'rbi'=>$user->totalSum($now , '' , '.rbi') ,
+                'atbat'=>$user->totalSum($now , '' , '.at_bat') ,'ave'=>$user->totalaverage($now,'','.hits','.at_bat'),
+                'rank'=>$rank.'位'];
             }else{
                 $data = [];
             }
+             
         }
-        //dd($data);
-        $collection = collect($data)->sortByDesc($col)->take(3);
-        
-          
-                // if($key[$col] = ($key-1)[$col]){
-                //     $rank = $rank;
-                //     echo $coll['name'];
-                //     //$coll->replace(['rank' => $rank]);
-                // }else{
-                //     $rank = $rank++;
-                // }
-            //$collection->replace(['rank' => $rank]);    
-           //dd($rank); 
-            
-        
-          
-        
+        $collection = collect($data)->sortByDesc($col);
         return $collection;
     }
+    
+    public function getAveRank()
+    {
+        $gameCount = Game::count();
+        $count = 0;
+        $rank = 1 ;
+        $cnt = 1;
+        $comparison = 0;
+        $users = $this->addCollection('ave');
+        foreach($users as $key=>$user)
+        {
+            if($gameCount <= $user['atbat'])
+            {
+                if($comparison != $user['ave'])
+                {
+                   $rank = $cnt; 
+                }
+                $comparison = $user['ave'];
+                $cnt++;
+                $ave[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'ave' => $user['ave']];
+                //echo $point;
+                if($rank <= 3)
+                {
+                    $count++;
+                }
+            }
+        }
+        
+        $Ave = collect($ave)->take($count);
+        //dd($Ave);
+        return $Ave;
+    }
+    
+    public function getHrRank()
+    {
+        $count = 0;
+        $rank = 1 ;
+        $cnt = 1;
+        $comparison = 0;
+        $users = $this->addCollection('hr');
+        foreach($users as $key=>$user)
+        {
+            if($user['hr'] !== 0)
+            {
+                if($comparison != $user['hr'])
+                {
+                   $rank = $cnt; 
+                }
+                $comparison = $user['hr'];
+                $cnt++;
+                $hr[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'hr' => $user['hr']];
+                //echo $point;
+                if($rank <= 3)
+                {
+                    $count = $count+1;
+                }
+            }
+        }
+        $HR = collect($hr)->take($count);
+        //dd($HR);
+        return $HR;
+    }
+    
+    public function getRbiRank()
+    {
+        $count = 0;
+        $rank = 1 ;
+        $cnt = 1;
+        $comparison = 0;
+        $users = $this->addCollection('rbi');
+        foreach($users as $key=>$user)
+        {
+            if($user['rbi'] !== 0)
+            {
+                if($comparison != $user['rbi'])
+                {
+                   $rank = $cnt; 
+                }
+                $comparison = $user['rbi'];
+                $cnt++;
+                $rbi[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'rbi' => $user['rbi']];
+                //echo $point;
+                if($rank <= 3)
+                {
+                    $count = $count+1;
+                }
+            }
+        }
+        $RBI = collect($rbi)->take($count);
+        //dd($RBI);
+        return $RBI;
+    }
+   
     
     public function getserch($id,$opponent,$year)
     {
