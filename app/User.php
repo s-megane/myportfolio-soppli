@@ -212,15 +212,16 @@ class User extends Authenticatable
         $query = $this->usergames();
         if(!empty($year) && empty($opponent))
         {
-            $query->whereYear('users_games.created_at' ,$year);
+            $query->whereYear('users_games.created_at' , 'like' , '%' . $year . '%');
         }
         if(!empty($year) && !empty($opponent)){
             
-            $query->where('opponent',$opponent)->whereYear('users_games.created_at' ,$year);
+            $query->whereYear('users_games.created_at' , $year);
+            $query->where('opponent' , 'like' , '%' . $opponent . '%');
         }
         if(empty($year) && !empty($opponent))
         {
-            $query->where('opponent',$opponent);
+            $query->where('opponent' , 'like' , '%' . $opponent . '%');
         }
         $totalSum = $query->sum('users_games'.$col);
         return $totalSum;
