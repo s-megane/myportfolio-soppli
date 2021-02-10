@@ -85,7 +85,7 @@ class EventService
         //権限の指定
         $client->setScopes(Google_Service_Calendar::CALENDAR_EVENTS);
         //JSONファイルの指定
-        $client->setAuthConfig(storage_path('app/json/moonlit-casing-301406-1ecf18fc1f64.json'));
+        $client->setAuthConfig(storage_path('json/moonlit-casing-301406-1ecf18fc1f64.json'));
 
         return $client;
     }

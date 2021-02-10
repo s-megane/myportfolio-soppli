@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "moonlit-casing-301406",
+  "private_key_id": "1ecf18fc1f64a359c2af5d0c2fa3a0db11217a9b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDx3rhNw/GzmPCB\n050ULBRzwSxqnJUW2f7qe/GgvYFclk8jOoTQlgd0fnFdNuLMps1tIW1TBAf97e1R\nb/rg/96M9cFdLhOqTkAfK3XZNiNEg2fTAMGlZMJ8wqUnbFxMFyM7DHG+xcX8q2rv\nEjofWGk5P62/XOOWABzkmOnuqeEQG6ZhHeMptDo+FwQ4RSJbLgoKjn1mDyaX4Ptf\nneX4CKoeVEyRjAaMt2vmw3drmot09K4xH7KJFb5Ncqvbot4EvidmkJGgzJBtgrVF\nPr1aaDO5TUhNS7MvpWsWT0nY0hS/udZe/6ixx8gtRdZow1uLXDjnPw/vNwm4WrGq\nWIORQJ/3AgMBAAECggEAQtHmdel3qUfLzfohz7Rb1BzegfePQrhn8eza9K7WAbeu\n1ksw7RU9qwPRmtByeNpuL0OIWeJnuNHV+eUnWKinmaa9TFpR6X9jvJi7no4T0TZC\nZSs01FYRWvlFOi54EzdjLsmB1RP7XhIXYUPWVdmNfFjozdDCOSr/0HGkUyCQgmuv\nkoZoRSjs+hN2sg5BIwP2hIcC61MkAWgpl6uVK3ZMIBk4ruy3gdyYD5fGEy+R5hET\nyeNVkYOrR27gYVnvw188GsDyYPhmx3GVs8/1wAXvISfLLDua6+J7rkqE/6Y7Pp4D\nAEhoLOvpi/OkNgFTbej294DlqHjtO58o517mL6SKNQKBgQD/ZceuwACW7DZqbSjR\nCy8HPv9VO9CO3r+oZcG8pTsn4gejdOx2WVLSvFP2GJ8ASe8KjULwJtGQITuNpjVv\nwcAVbX/VYMN3N7Iycy3L/l+d3Z/L1tHqqYJ0cCKri+ZkanKeZCwED/2Hah6hmkaQ\nDbC/ZEowKdNwV5tvf03u2RB//QKBgQDycMV6LO2Sb/sZ43kyQGf1s8bCuX1J+F+E\nHNTKPiVI2jsovuNMfk1DLLbfBOVfNsWswq1kopGYoi194u8brvtVpqy2Mx2DHbrj\nz5bpimpCArBxmKkl30IcjYbNVvaiWCi0S72O2k3FRWqT9lwkF4AYzIEZTIDkmTw+\nLi7cmKWgAwKBgDQ8QOcA5h34GfkScnKu8uNsgxSPs0xFSrXKeiF3Oe4iUKWh2Gss\nQcBQPGvtBTgt5vIlijdL+TidU2zZPbypx/uZ9bdSnyfXAF9JJ2i9khjbpz8tpKl2\nGfRuquijKHAJRYAXxNjf3F7B2Zn7z8rOwgOjI3lOVKx5fpUDWJEtXC6RAoGAEazb\nGN8xqt1zJx4IdftwGN+0e/neAoiTHiSj9uK1ASy3526TT75dj6ow4u2Oc3Sg0MmY\nrp+TkdcxDd5/pDsLo+D08oujeS2vtHAsBnbK7GkZyA5jNpmiTkabL1lJvehDf3GO\nLl4IEXvQG114tkDoW+Z8+wUy2He7hqUDUZ3nZVUCgYBC1n/PiOPm28LiWw7xRZg3\n/7z9jCOLLnnmzgpbdwE54vhaFHdidsEhdHXp/DKLBSuw2GyMjrtxehBTqjxr2mc6\n8HKb7qDI7FXipkX0742KhIb0QQePJtjxrGeO5iBpeYKQ+w7ojZx9p8SsCC5JkSCa\nvm6RkiWuIlQA53t0JWBSVw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "laravel-google-calendar@moonlit-casing-301406.iam.gserviceaccount.com",
+  "client_id": "103442105203393287048",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/laravel-google-calendar%40moonlit-casing-301406.iam.gserviceaccount.com"
+}
