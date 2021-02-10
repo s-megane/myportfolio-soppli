@@ -15,6 +15,7 @@ class UserService {
         $rank = 1;
         $now = Carbon::now()->year;
         $users = User::all();
+        $usergamesCount = DB::teble('usergames')->count();
         foreach($users as $user){
             if($gameCount > 0)  //試合数が0じゃなければ
             {
@@ -22,7 +23,7 @@ class UserService {
                 'hr'=>$user->totalSum($now , '' , '.hr') ,'rbi'=>$user->totalSum($now , '' , '.rbi') ,
                 'atbat'=>$user->totalSum($now , '' , '.at_bat') ,'ave'=>$user->totalaverage($now,'','.hits','.at_bat'),
                 'rank'=>$rank.'位'];
-            }else{
+            }elseif($usergamesCount == 0 || $gameCount == 0){
                 $data = [];
             }
              
