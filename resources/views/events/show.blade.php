@@ -7,7 +7,7 @@
                 <div class = "col-sm-6 col-md-12">
                     <div class = "text-center">    
                         <h1>イベント詳細</h1>
-                        <div class = 'mt-3 mb-3'>
+                        <div class = 'mt-3 mb-2'>
                         @if (\Auth::user()->role <= 2)
                             <a class = 'mylink' href="/admin" >戻る</a>
                         @else
@@ -16,9 +16,12 @@
                         </div>
                         @if (\Auth::user()->role === 1)
                             {!! Form::open(['route' => ['mail.send', $event->id]]) !!}
-                                {!! Form::submit('出欠確認メール送信', ['class' => "btn btn-primary"]) !!}
+                                {!! Form::submit('出欠確認メール送信', ['class' => "btn mybtn2"]) !!}
                             {!! Form::close() !!}
-                            {!! link_to_route('games.show', '試合一覧', [$event->id], ['class' => 'btn btn-secondary']) !!}
+                        @endif
+                        @if (\Auth::user()->role <= 2)
+                            {!! link_to_route('games.show', '試合一覧', [$event->id], ['class' => 'btn mybtn3 mt-2']) !!}
+                            
                         @endif 
                         <div class = "mt-1">
                             <table class="table table-borderless">
@@ -48,7 +51,7 @@
                                     <div class = "col-sm-6 col-mb-Auto">
                                         <div class = "mr-2">
                                         @if (\Auth::user()->role <= 2)
-                                            {!! link_to_route('events.edit', '内容変更する', [$event->id], ['class' => 'btn btn-secondary']) !!}
+                                            {!! link_to_route('events.edit', '内容変更する', [$event->id], ['class' => 'btn mybtn3']) !!}
                                         @endif  
                                         </div>
                                     </div>
@@ -56,7 +59,7 @@
                                         <div class = "ml-2">
                                         @if (\Auth::user()->role <= 2)
                                             {!! Form::open(['route' => ['events.destroy', $event->id] ,'method' => 'delete']) !!}
-                                                {!! Form::submit('イベント削除', ['class' => "btn btn-danger"]) !!}
+                                                {!! Form::submit('イベント削除', ['class' => "btn mybtn"]) !!}
                                             {!! Form::close() !!}
                                         @endif 
                                         </div>

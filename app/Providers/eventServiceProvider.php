@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Services\UserService;
-class UserServiceProvider extends ServiceProvider
+
+class eventServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -14,8 +14,8 @@ class UserServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
-            'UserService', // キー名
-            'App\Services\UserService' // クラス名
+            'EventService', // キー名
+            'App\Services\EventService' // クラス名
         );
     }
 

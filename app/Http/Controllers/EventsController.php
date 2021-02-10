@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\EventRequest;
+use App\Services\EventService;
 use App\Event;
 use App\User;
 use App\Game;
@@ -14,19 +15,9 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(EventService $Event)
     {
-        $data = [] ;
-        if (\Auth::check()){
-            $events = Event::take(5)->orderBy("created_at" ,"desc")->paginate(5);
-            $users = User::orderBy("role")->paginate(10);
-            $game = Game::take(1)->orderBy("created_at" , "desc");
-            $data = [
-                "users" => $users ,
-                "events" => $events ,
-                "game" => $game,
-            ];
-        }
+        $data = $Event->getIndexData();
         return view("welcome" , $data);
         
     }
@@ -48,32 +39,28 @@ class EventsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EventRequest $request)
+    public function store(EventRequest $request , EventService $Event)
     {
         //イベントデータ作成
         $event = new Event;
         $event->fill($request->all())->save();
-        
-        
+        //作成イベントの開催日を取得
+        $eventdate = $event->eventdate;
         //作成イベントデータのidを取得
         $eventId = $event->id;
         //作成イベントのタイトルを取得
         $title = $event->title;
+        //作成イベントの回答締め切り日を取得
+        $deadlinedate = $event->deadlinedate;
+        //イベントが、大会名なら、試合データを作成(2試合)
         if($title == "練習"||$title == "親睦会" )
         {
         }else{
-            
-            //1大会につき2試合
-            $gamecounts = ['第1試合' , '第2試合'];
-            //gamesテーブルに2試合分のデータ登録
-            foreach ($gamecounts as $gamecount){
-                $game = new Game;
-                $game->event_id = $eventId;
-                $game->title = $gamecount;
-                $game ->save();
-            }    
+            $gameSave = $Event->getCreateData($eventId);
         }
-       return redirect()->action('EventsController@show' , [$event->id]);
+        //自分のカレンダーに、回答締め切り日を登録する
+        $clendarSave = $Event->getCalendarData($eventdate,$deadlinedate,$title,$eventId);
+        return redirect()->action('EventsController@show' , [$event->id]);
     }
 
     /**
@@ -111,16 +98,15 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EventRequest $request, $id)
+    public function update(EventRequest $request, EventService $Event,$id)
     {
-        if (\Auth::user()->role <= 2){
+        if (\Auth::user()->role <= 2)
+        {
             $event = Event::findOrFail($id);
-            // $event->eventdate = $request->eventdate;
-            // $event->title = $request->title;
-            // $event->place = $request->place;
-            // $event->meetingtime = $request->meetingtime;
-            // $event->deadlinedate = $request->deadlinedate;
             $event->fill($request->all())->save();
+            //更新後の回答締め切り日を取得
+            $updateEventDate = $event->deadlinedate;
+            $updateCevent = $Event->updateCevent($updateEventDate , $event->id);
             return redirect()->action('EventsController@show' , [$event->id]);
         }
     }
@@ -131,10 +117,12 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(EventService $Event,$id)
     {
+        //イベントを削除したら、カレンダーも削除する
         $event = Event::findOrFail($id);
         if (\Auth::user()->role <= 2){
+           $CeventDelete = $Event->deleteCevent($event->id);
            $event->delete();
            return redirect("/admin");
         }

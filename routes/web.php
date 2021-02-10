@@ -18,7 +18,7 @@ Route::get('/', 'EventsController@index');
 
 
 // ユーザ登録
-//Route::resource('/', 'GoogleCalendarController');
+//Route::resource('calender', 'GoogleCalendarController');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // 認証

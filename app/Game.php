@@ -10,7 +10,7 @@ class Game extends Model
     
     public function event()
     {
-         return $this->belongsTo(Event::class);
+        return $this->belongsTo(Event::class);
     }
     
     public function result ($numA,$numB)

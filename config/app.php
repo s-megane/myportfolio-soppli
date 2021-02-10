@@ -226,7 +226,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'GradesService' => App\Facades\GradesService::class,
-        'UserService' => App\Facades\GradesService::class,
+        'UserService' => App\Facades\UserService::class,
+        'EventService' => App\Facades\EventService::class,
     ],
 
 ];

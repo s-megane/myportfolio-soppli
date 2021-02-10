@@ -23,10 +23,16 @@ class Event extends Model
         return $this->hasMany(Game::class);
     }
     
+    public function calendar()
+    {
+        return $this->hasOne(Calendar::class);
+    }
+    
     public function year_get($year)
     {
         
         return $getdate = Event::whereYear('eventdate' , $year)->get();
         
     }
+    
 }
