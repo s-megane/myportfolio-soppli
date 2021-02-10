@@ -41,27 +41,32 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('ave');
-        foreach($users as $key=>$user)
+        if($users->count() !== 0)
         {
-            if($gameCount <= $user['atbat'])
+            foreach($users as $key=>$user)
             {
-                if($comparison != $user['ave'])
+                if($gameCount <= $user['atbat'])
                 {
-                   $rank = $cnt; 
-                }
-                $comparison = $user['ave'];
-                $cnt++;
-                $ave[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'ave' => $user['ave']];
-                //echo $point;
-                if($rank <= 3)
-                {
-                    $count++;
+                    if($comparison != $user['ave'])
+                    {
+                       $rank = $cnt; 
+                    }
+                    $comparison = $user['ave'];
+                    $cnt++;
+                    $ave[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'ave' => $user['ave']];
+                    //echo $point;
+                    if($rank <= 3)
+                    {
+                        $count++;
+                    }
                 }
             }
+            $Ave = collect($ave)->take($count);
+        }else{
+            $Ave = [];
         }
         
-        $Ave = collect($ave)->take($count);
-        //dd($Ave);
+        dd($Ave);
         return $Ave;
     }
     
@@ -72,25 +77,31 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('hr');
-        foreach($users as $key=>$user)
+        if($users->count() !== 0)
         {
-            if($user['hr'] !== 0)
+            foreach($users as $key=>$user)
             {
-                if($comparison != $user['hr'])
+                if($user['hr'] !== 0)
                 {
-                   $rank = $cnt; 
-                }
-                $comparison = $user['hr'];
-                $cnt++;
-                $hr[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'hr' => $user['hr']];
-                //echo $point;
-                if($rank <= 3)
-                {
-                    $count = $count+1;
+                    if($comparison != $user['hr'])
+                    {
+                       $rank = $cnt; 
+                    }
+                    $comparison = $user['hr'];
+                    $cnt++;
+                    $hr[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'hr' => $user['hr']];
+                    //echo $point;
+                    if($rank <= 3)
+                    {
+                        $count = $count+1;
+                    }
                 }
             }
+            $HR = collect($hr)->take($count);
+        }else{
+            $HR = [];
         }
-        $HR = collect($hr)->take($count);
+            
         //dd($HR);
         return $HR;
     }
@@ -102,25 +113,31 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('rbi');
-        foreach($users as $key=>$user)
+        if($users->count() !== 0)
         {
-            if($user['rbi'] !== 0)
+            foreach($users as $key=>$user)
             {
-                if($comparison != $user['rbi'])
+                if($user['rbi'] !== 0)
                 {
-                   $rank = $cnt; 
-                }
-                $comparison = $user['rbi'];
-                $cnt++;
-                $rbi[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'rbi' => $user['rbi']];
-                //echo $point;
-                if($rank <= 3)
-                {
-                    $count = $count+1;
+                    if($comparison != $user['rbi'])
+                    {
+                       $rank = $cnt; 
+                    }
+                    $comparison = $user['rbi'];
+                    $cnt++;
+                    $rbi[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'rbi' => $user['rbi']];
+                    //echo $point;
+                    if($rank <= 3)
+                    {
+                        $count = $count+1;
+                    }
                 }
             }
+            $RBI = collect($rbi)->take($count);
+        }else{
+            $RBI = [];
         }
-        $RBI = collect($rbi)->take($count);
+            
         //dd($RBI);
         return $RBI;
     }
