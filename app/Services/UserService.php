@@ -67,7 +67,7 @@ class UserService {
             $Ave = [];
         }
         
-        dd($Ave);
+        //dd($Ave);
         return $Ave;
     }
     
