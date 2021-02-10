@@ -30,6 +30,7 @@ class UsersController extends Controller
             $aveColl = $User->getAveRank(); 
             $hrColl = $User->getHrRank();
             $rbiColl= $User->getRbiRank();
+            //dd(empty($aveColl),$hrColl,$rbiColl);
         }
         return view("users.index" , compact('users','aveColl','hrColl','rbiColl'));
     }

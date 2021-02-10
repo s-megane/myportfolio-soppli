@@ -44,6 +44,7 @@ class UserService {
         if($users->count() == 0)
         {
             $ave = [];
+            $Ave = [];
         }else{
             foreach($users as $key=>$user)
             {
@@ -63,12 +64,9 @@ class UserService {
                     }
                 }
             }
-            
-        
-            
-            
-        }
         $Ave = collect($ave)->take($count);
+        }
+        
         //dd($Ave);
         return $Ave;
     }
@@ -80,8 +78,11 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('hr');
-        if($users->count() !== 0)
+        if($users->count() == 0)
         {
+            $hr = [];
+            $HR = [];
+        }else{
             foreach($users as $key=>$user)
             {
                 if($user['hr'] !== 0)
@@ -100,12 +101,9 @@ class UserService {
                     }
                 }
             }
-            
-        }else{
-            $hr = [];
-            $HR = [];
-        }
         $HR = collect($hr)->take($count);    
+        }
+            
         //dd($HR);
         return $HR;
     }
@@ -117,8 +115,11 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('rbi');
-        if($users->count() !== 0)
+        if($users->count() == 0)
         {
+            $rbi = [];
+            $RBI = [];
+        }else{
             foreach($users as $key=>$user)
             {
                 if($user['rbi'] !== 0)
@@ -137,14 +138,11 @@ class UserService {
                     }
                 }
             }
-            
-        }else{
-            $rbi = [];
-            $RBI = [];
+        $RBI = collect($rbi)->take($count);    
         }
             
         //dd($RBI);
-        $RBI = collect($rbi)->take($count);
+        
         return $RBI;
     }
    

@@ -9,13 +9,16 @@
                             <h3>打率ランキング</h3>
                             <table class="table table-borderless  table-striped">
                                 <tbody>
-                                    @foreach($aveColl as $coll)
-                                    <tr>
-                                        <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
-                                        <td><h5>{{$coll['name']}}</h5></td>
-                                        <td><h5 class = 'ave'>{{$coll['ave']}}</h5></td>
-                                    </tr>
-                                    @endforeach
+                                    @if(empty($aveColl))
+                                    @else
+                                        @foreach($aveColl as $coll)
+                                        <tr>
+                                            <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
+                                            <td><h5>{{$coll['name']}}</h5></td>
+                                            <td><h5 class = 'ave'>{{$coll['ave']}}</h5></td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                              
@@ -24,13 +27,16 @@
                             <h3>HRランキング</h3>
                             <table class="table table-borderless  table-striped">
                                 <tbody>
-                                    @foreach($hrColl as $coll)
-                                    <tr>
-                                        <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
-                                        <td><h5>{{$coll['name']}}</h5></td>
-                                        <td><h5 class = 'hr'>{{$coll['hr']}}本</h5></td>
-                                    </tr>
-                                    @endforeach
+                                    @if(empty($hrColl))
+                                    @else
+                                        @foreach($hrColl as $coll)
+                                        <tr>
+                                            <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
+                                            <td><h5>{{$coll['name']}}</h5></td>
+                                            <td><h5 class = 'hr'>{{$coll['hr']}}本</h5></td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -38,13 +44,16 @@
                          <h3>打点ランキング</h3>
                             <table class="table table-borderless  table-striped">
                                 <tbody>
-                                    @foreach($rbiColl as $coll)
-                                    <tr>
-                                        <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
-                                        <td><h5>{{$coll['name']}}</h5></td>
-                                        <td><h5 class = 'rbi'>{{$coll['rbi']}}打点</h5></td>
-                                    </tr>
-                                    @endforeach    
+                                    @if(empty($rbiColl))
+                                    @else
+                                        @foreach($rbiColl as $coll)
+                                        <tr>
+                                            <td class = 'rank'><h5>{{$coll['rank']}}</h5></td>
+                                            <td><h5>{{$coll['name']}}</h5></td>
+                                            <td><h5 class = 'rbi'>{{$coll['rbi']}}打点</h5></td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>  
                         </div>
