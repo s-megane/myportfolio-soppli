@@ -63,6 +63,7 @@ class UserService {
             }
             $Ave = collect($ave)->take($count);
         }else{
+            $ave = [];
             $Ave = [];
         }
         
@@ -99,6 +100,7 @@ class UserService {
             }
             $HR = collect($hr)->take($count);
         }else{
+            $hr = [];
             $HR = [];
         }
             
@@ -135,10 +137,12 @@ class UserService {
             }
             $RBI = collect($rbi)->take($count);
         }else{
+            $rbi = [];
             $RBI = [];
         }
             
         //dd($RBI);
+        
         return $RBI;
     }
    
