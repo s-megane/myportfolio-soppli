@@ -41,8 +41,10 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('ave');
-        if($users->count() !== 0)
+        if($users->count() == 0)
         {
+            $ave = [];
+        }else{
             foreach($users as $key=>$user)
             {
                 if($gameCount <= $user['atbat'])
@@ -62,8 +64,8 @@ class UserService {
                 }
             }
             
-        }else{
-            $ave = [];
+        
+            
             
         }
         $Ave = collect($ave)->take($count);
