@@ -16,7 +16,7 @@ class UserService {
         $now = Carbon::now()->year;
         $users = User::all();
         $usergamesCount = DB::table('users_games')->count();
-        dd($usergamesCount);
+        //dd($usergamesCount);
         foreach($users as $user){
             if($gameCount > 0)  //試合数が0じゃなければ
             {
