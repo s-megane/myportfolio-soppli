@@ -64,7 +64,7 @@ class UserService {
             
         }else{
             $ave = [];
-            $Ave = [];
+            
         }
         $Ave = collect($ave)->take($count);
         //dd($Ave);
