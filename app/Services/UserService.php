@@ -18,18 +18,20 @@ class UserService {
         $usergamesCount = DB::table('users_games')->count();
         //dd($usergamesCount);
         foreach($users as $user){
-            if($gameCount > 0)  //試合数が0じゃなければ
+            if($usergamesCount > 0)  //試合数が0じゃなければ
             {
+                //dd($gameCount);
                 $data[] = ['id'=>$user->id ,'name'=>$user->name ,  
                 'hr'=>$user->totalSum($now , '' , '.hr') ,'rbi'=>$user->totalSum($now , '' , '.rbi') ,
                 'atbat'=>$user->totalSum($now , '' , '.at_bat') ,'ave'=>$user->totalaverage($now,'','.hits','.at_bat'),
                 'rank'=>$rank.'位'];
-            }elseif($usergamesCount == 0 || $gameCount == 0){
+            }elseif($usergamesCount == 0){
                 $data = [];
             }
              
         }
         $collection = collect($data)->sortByDesc($col);
+        //dd($collection);
         return $collection;
     }
     
@@ -41,6 +43,7 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('ave');
+        //dd($users);
         if($users->count() == 0)
         {
             $ave = [];
@@ -138,7 +141,8 @@ class UserService {
                     }
                 }
             }
-        $RBI = collect($rbi)->take($count);    
+        $RBI = collect($rbi)->take($count); 
+        //echo $RBI;
         }
             
         //dd($RBI);
