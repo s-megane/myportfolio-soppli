@@ -61,12 +61,12 @@ class UserService {
                     }
                 }
             }
-            $Ave = collect($ave)->take($count);
+            
         }else{
             $ave = [];
             $Ave = [];
         }
-        
+        $Ave = collect($ave)->take($count);
         //dd($Ave);
         return $Ave;
     }
@@ -98,12 +98,12 @@ class UserService {
                     }
                 }
             }
-            $HR = collect($hr)->take($count);
+            
         }else{
             $hr = [];
             $HR = [];
         }
-            
+        $HR = collect($hr)->take($count);    
         //dd($HR);
         return $HR;
     }
@@ -135,14 +135,14 @@ class UserService {
                     }
                 }
             }
-            $RBI = collect($rbi)->take($count);
+            
         }else{
             $rbi = [];
             $RBI = [];
         }
             
         //dd($RBI);
-        
+        $RBI = collect($rbi)->take($count);
         return $RBI;
     }
    
