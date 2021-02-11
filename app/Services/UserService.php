@@ -18,9 +18,8 @@ class UserService {
         $usergamesCount = DB::table('users_games')->count();
         //dd($usergamesCount);
         foreach($users as $user){
-            if($usergamesCount > 0)  //試合数が0じゃなければ
+            if($usergamesCount > 0)  //users_gamesが0じゃなければ
             {
-                //dd($gameCount);
                 $data[] = ['id'=>$user->id ,'name'=>$user->name ,  
                 'hr'=>$user->totalSum($now , '' , '.hr') ,'rbi'=>$user->totalSum($now , '' , '.rbi') ,
                 'atbat'=>$user->totalSum($now , '' , '.at_bat') ,'ave'=>$user->totalaverage($now,'','.hits','.at_bat'),
@@ -43,34 +42,27 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('ave');
-        //dd($users);
-        if($users->count() == 0)
+        $ave = [];
+        $Ave = [];
+        foreach($users as $key=>$user)
         {
-            $ave = [];
-            $Ave = [];
-        }else{
-            foreach($users as $key=>$user)
+            if($gameCount <= $user['atbat'])
             {
-                if($gameCount <= $user['atbat'])
+                if($comparison != $user['ave'])
                 {
-                    if($comparison != $user['ave'])
-                    {
-                       $rank = $cnt; 
-                    }
-                    $comparison = $user['ave'];
-                    $cnt++;
-                    $ave[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'ave' => $user['ave']];
-                    //echo $point;
-                    if($rank <= 3)
-                    {
-                        $count++;
-                    }
+                   $rank = $cnt; 
+                }
+                $comparison = $user['ave'];
+                $cnt++;
+                $ave[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'ave' => $user['ave']];
+                //echo $point;
+                if($rank <= 3)
+                {
+                    $count++;
                 }
             }
-        $Ave = collect($ave)->take($count);
         }
-        
-        //dd($Ave);
+        $Ave = collect($ave)->take($count);
         return $Ave;
     }
     
@@ -81,32 +73,28 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('hr');
-        if($users->count() == 0)
+        $hr = [];
+        $HR = [];
+        foreach($users as $key=>$user)
         {
-            $hr = [];
-            $HR = [];
-        }else{
-            foreach($users as $key=>$user)
+            if($user['hr'] !== 0)
             {
-                if($user['hr'] !== 0)
+                if($comparison != $user['hr'])
                 {
-                    if($comparison != $user['hr'])
-                    {
-                       $rank = $cnt; 
-                    }
-                    $comparison = $user['hr'];
-                    $cnt++;
-                    $hr[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'hr' => $user['hr']];
-                    //echo $point;
-                    if($rank <= 3)
-                    {
-                        $count = $count+1;
-                    }
+                   $rank = $cnt; 
+                }
+                $comparison = $user['hr'];
+                $cnt++;
+                $hr[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'hr' => $user['hr']];
+                dd($hr);
+                //echo $point;
+                if($rank <= 3)
+                {
+                    $count++;
                 }
             }
-        $HR = collect($hr)->take($count);    
         }
-            
+        $HR = collect($hr)->take($count);    
         //dd($HR);
         return $HR;
     }
@@ -118,35 +106,27 @@ class UserService {
         $cnt = 1;
         $comparison = 0;
         $users = $this->addCollection('rbi');
-        if($users->count() == 0)
+        $rbi = [];
+        $RBI = [];
+        foreach($users as $key=>$user)
         {
-            $rbi = [];
-            $RBI = [];
-        }else{
-            foreach($users as $key=>$user)
+            if($user['rbi'] !== 0)
             {
-                if($user['rbi'] !== 0)
+                if($comparison != $user['rbi'])
                 {
-                    if($comparison != $user['rbi'])
-                    {
-                       $rank = $cnt; 
-                    }
-                    $comparison = $user['rbi'];
-                    $cnt++;
-                    $rbi[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'rbi' => $user['rbi']];
-                    //echo $point;
-                    if($rank <= 3)
-                    {
-                        $count = $count+1;
-                    }
+                   $rank = $cnt; 
+                }
+                $comparison = $user['rbi'];
+                $cnt++;
+                $rbi[] = ['rank' => $rank.'位' , 'name' => $user['name']  , 'rbi' => $user['rbi']];
+                //echo $point;
+                if($rank <= 3)
+                {
+                    $count++;
                 }
             }
-        $RBI = collect($rbi)->take($count); 
-        //echo $RBI;
         }
-            
-        //dd($RBI);
-        
+        $RBI = collect($rbi)->take($count);     
         return $RBI;
     }
    
