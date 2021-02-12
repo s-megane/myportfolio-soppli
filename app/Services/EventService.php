@@ -47,8 +47,8 @@ class EventService
     {
         $client = $this->getClient();
         $service = new Google_Service_Calendar($client);
-        $calendarId = 'nihonniegaowo@gmail.com';
-        //dd($Event->deadlinedate);
+        $calendarId = config('google-calendar.calendar_id');
+        //dd($calendarId);
         $Cevent = new Google_Service_Calendar_Event(array(
             //タイトル
             'summary' => $eventdate.'開催の'.$eventtitle.'の出欠未確認者へメールする',
@@ -95,7 +95,7 @@ class EventService
         $gameevent = Event::findOrFail($id);
         $client = $this->getClient();
         $service = new Google_Service_Calendar($client);
-        $calendarId = 'nihonniegaowo@gmail.com';
+        $calendarId = config('google-calendar.calendar_id');
         $Cevent_id = $gameevent->calendar->Cevent_id;
         $Cevent = $service->events->get($calendarId, $Cevent_id);
         $start = new Google_Service_Calendar_EventDateTime();
@@ -113,7 +113,7 @@ class EventService
         $gameevent = Event::findOrFail($id);
         $client = $this->getClient();
         $service = new Google_Service_Calendar($client);
-        $calendarId = 'nihonniegaowo@gmail.com';
+        $calendarId = config('google-calendar.calendar_id');
         $Cevent_id = $gameevent->calendar->Cevent_id;
         $Cevent = $service->events->get($calendarId, $Cevent_id);
         $Clendarevent = $service->events->delete($calendarId, $Cevent_id);
