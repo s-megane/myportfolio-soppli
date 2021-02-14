@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get("users" , "UsersController@userdelete")->name("user.delete");
         Route::post("evaluation" , "EvaluationController@store")->name("evaluation.store");
         Route::put("evaluation" , "EvaluationController@update")->name("evaluation.update");
-        Route::get("evaluation" , "EvaluationController@show")->name("evaluation.show");
+        //Route::get("evaluation" , "EvaluationController@show")->name("evaluation.show");
         Route::get("evaluation" , "EvaluationController@edit")->name("evaluation.edit");
         Route::put("grades" , "GradesController@update")->name("grades.update");
         Route::get("grades" , "GradesController@show")->name("grades.show");

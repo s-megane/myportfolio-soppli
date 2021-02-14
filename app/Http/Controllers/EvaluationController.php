@@ -45,13 +45,10 @@ class EvaluationController extends Controller
         return redirect()->action('UsersController@show', [$user->id]);    
     }
     
-    public function show($id)
-    {
-        $abilitys = ["meet" ,"power" ,"run" ,"defense", "shoulder"];
-        $user = User::findOrFail($id);
-        return view("evaluations.show" ,[
-                "user" => $user,
-                "abilitys" => $abilitys
-        ]);    
-    }
+    // public function show($id)
+    // {
+    //     // $abilitys = ["meet" ,"power" ,"run" ,"defense", "shoulder"];
+    //     // $user = User::findOrFail($id);
+    //     return view("evaluations.show" );    
+    // }
 }
