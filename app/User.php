@@ -54,7 +54,7 @@ class User extends Authenticatable
     {
         return $this->attendances()->where("event_id" , $eventId)->exists();
     }
-    
+    //ユーザーの年齢を計算
     public function user_age()
     {
         $now = Carbon::now();
@@ -68,7 +68,6 @@ class User extends Authenticatable
         $myday = sprintf('%02d',$date->day);
         $dayA = $year.$month.$day;
         $dayB = $myyear.$mymonth.$myday;
-        
         return $age = floor(($dayA-$dayB)/10000);
     }
     
@@ -85,7 +84,7 @@ class User extends Authenticatable
     {
         return $this->evaluations()->where("target_id" ,$userId)->exists();
     }
-    
+    //選択したユーザーの自分が評価した数値を取得(更新するとき)
     public function getAbility ($userId,$Col)  
     {
         return \Auth::user()->evaluations()->where("target_id" ,$userId)->value($Col);
@@ -95,11 +94,14 @@ class User extends Authenticatable
     {
         return $Ability = DB::table("evaluation_target")->where("target_id", $userId)->sum($col); 
     }
-    
+    //ユーザーの獲得した評価値を条件によって表示する
     public function myAbility($userId,$col)
     {
+        //最高評価値
         $max = 8;
+        //評価した人数
         $userCount = $this->targets()->count();
+        //評価値取得
         $Ability = DB::table("evaluation_target")->where("target_id", $userId)->sum($col);
         $result =$Ability/($max*$userCount);
         if($userCount == 1){
@@ -151,7 +153,7 @@ class User extends Authenticatable
     {
         return $this->usergames()->where("game_id" ,$gameId)->exists();
     }
-    
+    //試合ごとの成績を取得する(計算を必要としないもの)
     public function getmydata($gameId,$col)
     {
         return $this->usergames()->with('usergames')->where('game_id' , $gameId)->value($col);
@@ -167,7 +169,7 @@ class User extends Authenticatable
         }elseif ($hits == $atbat){
             $average = number_format(($hits / $atbat) , 3); //1.000
         }else{
-            $average =  substr(number_format(($hits / $atbat) , 3) , 1); //.000
+            $average =  substr(number_format(($hits / $atbat) , 3) , 1); //.XXX
         }    
         return $average;
     }
@@ -198,14 +200,14 @@ class User extends Authenticatable
         if($totalhits == 0){
             $totalaverage = '.000';
         }elseif ($totalhits == $totalatbat){
-            $totalaverage = number_format(($totalhits / $totalatbat) , 3);
+            $totalaverage = number_format(($totalhits / $totalatbat) , 3); //1.000
         }else{
-            $totalaverage =  substr(number_format(($totalhits / $totalatbat) , 3) , 1);
+            $totalaverage =  substr(number_format(($totalhits / $totalatbat) , 3) , 1); //.XXX
         }    
         return $totalaverage;
     }
     
-    //年間成績取得
+    //年間成績取得　年と対戦相手で検索できる
     public function totalSum($year , $opponent , $col)
     {
         $now = Carbon::now()->year;
@@ -232,10 +234,12 @@ class User extends Authenticatable
     {
         $innings = $this->totalSum($year,$opponent,$col1);
         $conceded = $this->totalSum($year,$opponent,$col2);
+        //登板がなければ
         if(($innings || $conceded) == 0)
         {
             return "-";
         }else{
+            //防御率= 失点×5イニング÷投球回数
             return number_format(($conceded * 5)/ $innings, 2);
         }
     }

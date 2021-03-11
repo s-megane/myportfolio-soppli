@@ -10,7 +10,7 @@
                         <div class = 'mt-3 mb-2'>
                         @if (\Auth::user()->role <= 2)
                             <a class = 'mylink' href="/admin" >戻る</a>
-                        @else
+                        @elseif(\Auth::user()->role === 3)
                             <a class = 'mylink' href="/" >戻る</a>
                         @endif
                         </div>

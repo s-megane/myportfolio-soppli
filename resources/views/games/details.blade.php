@@ -6,7 +6,10 @@
         <div class = "text-center">
             <h2>{{$game->opponent}}戦試合詳細</h2>
             @if($status == 1)
-            {!! link_to_route('grades.edit', \Auth::user()->name.'の成績入力' , [$game->id],['class' => 'mylink']) !!}
+                {!! link_to_route('grades.edit', \Auth::user()->name.'の成績入力' , [$game->id],['class' => 'mylink']) !!}
+            @endif
+            @if(\Auth::user()->role <= 2)
+                {!! link_to_route('games.edit', '試合明細を入力する', [$game->id], ['class' => 'mylink', ]) !!}
             @endif
             <table class="table table-border  table-striped">
                 <thead>

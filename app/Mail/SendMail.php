@@ -31,7 +31,6 @@ class SendMail extends Mailable
     {
         
         return $this
-                    ->from("nihonniegaowo@outlook.jp","田牧")
                     ->subject('出欠確認')
                     ->view('emails.mail')
                     ->with([

@@ -14,22 +14,21 @@ use Google_Service_Calendar_EventDateTime;
 
 class EventService 
 {
+    //events.indexに表示するデータを取得する
     public function getIndexData()
     {
         $data = [] ;
         if (\Auth::check()){
             $events = Event::take(5)->orderBy("created_at" ,"desc")->paginate(5);
             $users = User::orderBy("role")->paginate(10);
-            $game = Game::take(1)->orderBy("created_at" , "desc");
             $data = [
                 "users" => $users ,
                 "events" => $events ,
-                "game" => $game,
             ];
         }
         return $data;
     }
-    
+    //試合データを登録する
     public function getCreateData($eventId)
     {
         //1大会につき2試合
@@ -42,13 +41,12 @@ class EventService
             $game->save();
         }    
     }
-    
+    //googleカレンダーにデータを追加する(出欠未回答者にメールを送る日を登録)
     public function getCalendarData($eventdate,$deadlinedate,$eventtitle,$eventId)
     {
         $client = $this->getClient();
         $service = new Google_Service_Calendar($client);
         $calendarId = config('google-calendar.calendar_id');
-        //dd($calendarId);
         $Cevent = new Google_Service_Calendar_Event(array(
             //タイトル
             'summary' => $eventdate.'開催の'.$eventtitle.'の出欠未確認者へメールする',
@@ -72,14 +70,11 @@ class EventService
         $calendar->event_id = $eventId;
         $calendar->Cevent_id = $CeventId;
         $calendar->save();
-        //echo "イベントを追加しました";
-        //return back();
     }
     
     private function getClient()
     {
         $client = new Google_Client();
-
         //アプリケーション名
         $client->setApplicationName('GoogleCalendarAPI');
         //権限の指定
@@ -90,24 +85,30 @@ class EventService
         return $client;
     }
     
+    //googleカレンダーのデータを変更する
     public function updateCevent($deadlinedate , $id)
     {
         $gameevent = Event::findOrFail($id);
         $client = $this->getClient();
         $service = new Google_Service_Calendar($client);
         $calendarId = config('google-calendar.calendar_id');
+        //イベントと関連するカレンダーイベントのid取得
         $Cevent_id = $gameevent->calendar->Cevent_id;
+        //カレンダーイベント取得
         $Cevent = $service->events->get($calendarId, $Cevent_id);
+        //開始日時
         $start = new Google_Service_Calendar_EventDateTime();
         $start->setDateTime($deadlinedate.'T12:00:00+09:00');  
         $Cevent->setStart($start);
+        //終了日時
         $end = new Google_Service_Calendar_EventDateTime();
         $end->setDateTime($deadlinedate.'T12:30:00+09:00');  
         $Cevent->setEnd($end);
+        //カレンダーを更新する
         $Clendarevent = $service->events->update($calendarId, $Cevent_id,$Cevent);
-        
     }
     
+    //googleカレンダーのデータを削除する
     public function deleteCevent($id)
     {
         $gameevent = Event::findOrFail($id);
@@ -115,7 +116,9 @@ class EventService
         $service = new Google_Service_Calendar($client);
         $calendarId = config('google-calendar.calendar_id');
         $Cevent_id = $gameevent->calendar->Cevent_id;
+        //カレンダーイベントを取得する
         $Cevent = $service->events->get($calendarId, $Cevent_id);
+        //カレンダーを削除する
         $Clendarevent = $service->events->delete($calendarId, $Cevent_id);
         
     }

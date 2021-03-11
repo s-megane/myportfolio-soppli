@@ -14,55 +14,25 @@ class GamesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+    //試合毎の個人成績一覧を表示し、関連する大会に参加していたら成績入力へ遷移するリンクを表示 
     public function details($id)
     {
         $game = Game::findOrFail($id);
+        //選択した試合に関係するイベントを取得する
         $event = $game->event()->first();
+        //取得したイベントに出欠回答をした自分を探す
         $attend = $event->attendances()->where('attendances.user_id' , \Auth::id())->first();
+        //そのイベントに自分が存在したら
         if(!empty(\Auth::user()->is_attendance($event->id)))
         {
+            //出欠の回答(ステータス)を取得する
             $status = $attend->pivot->status;
         }else
         {
             $status = '';
         }
         return view('games.details' , compact('game' , 'status'));
-            
-    }
-     
-    public function index() 
-    {
-        $users = User::all();
-        $events = Event::orderBy('created_at','desc')->get();
-        $Event = Event::first();
-        $games = Game::all();
-        return view('games.index' , [
-               'games' => $games,
-               'events' => $events,
-               'Event' => $Event,
-               'users' => $users,
-            ]);    
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        
     }
 
     /**
@@ -71,15 +41,12 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //関連する大会から試合の詳細画面表示
     public function show($id)
     {
         $event = Event::findOrFail($id);
         $games = $event->games()->get();
-        
-        return view('games.show' , [
-                "games" => $games ,   
-                "event" => $event,
-            ]);    
+        return view('games.show' , compact('games', 'event'));
     }
 
     /**
@@ -88,10 +55,10 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //試合結果を入力する画面表示 
     public function edit($id)
     {
         $game = Game::findOrFail($id);
-        
         return view('games.edit' ,[
                 "game" => $game,
             ]);
@@ -104,23 +71,13 @@ class GamesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    //試合結果の入力を反映する 
     public function update(valiRequest $request, $id)
     {
         $game = Game::findOrFail($id);
         $game->fill($request->all())->save();
+        //リダイレクトのため、イベントid取得
         $event = $game->event()->first();
-        
         return redirect()->action("GamesController@show",[$event->id]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

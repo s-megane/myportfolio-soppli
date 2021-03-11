@@ -45,11 +45,12 @@ class AppServiceProvider extends ServiceProvider
         });
         
         View::composer('*', function($view) {
-            //$Event = Event::first();
             $now = Carbon::now()->year;
-            //$exist = Event::where('id','')->get();
+            //今年のイベントを取得
             $getyear = Event::whereYear('eventdate' , $now)->orderBy('created_at' , 'desc')->get();
+            //去年のイベントを取得
             $getbefore = Event::whereYear('eventdate' , $now-1)->orderBy('created_at' , 'desc')->get();
+            //おととしのイベントを取得
             $getago = Event::whereYear('eventdate' , $now-2)->orderBy('created_at' , 'desc')->get();
             
             $view->with([
